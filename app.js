@@ -18,6 +18,8 @@ async function fetchPDFList() {
       const fileName = link.textContent.split('.pdf')[0].trim();
       return fileName;
     });
+
+    createPDFLinks(allPDFFiles);
   } catch (error) {
     console.error('Error fetching PDF list:', error);
   }
