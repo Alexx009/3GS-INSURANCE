@@ -1,7 +1,7 @@
-    // Array to store all PDF file names
-    let allPDFFiles = [];
+// Array to store all PDF file names
+let allPDFFiles = [];
 
-   // Function to fetch PDF files from the server and store them in an array
+// Function to fetch PDF files from the server and store them in an array
 async function fetchPDFList() {
   try {
     const response = await fetch('/INSURANCE/G2/');
@@ -18,14 +18,12 @@ async function fetchPDFList() {
       const fileName = link.textContent.split('.pdf')[0].trim();
       return fileName;
     });
-
-    createPDFLinks(allPDFFiles);
   } catch (error) {
     console.error('Error fetching PDF list:', error);
   }
 }
 
-   // Function to create links for each PDF file
+// Function to create links for each PDF file
 function createPDFLinks(pdfFiles) {
   const pdfList = document.getElementById('pdfList');
   pdfList.innerHTML = '';
@@ -35,18 +33,26 @@ function createPDFLinks(pdfFiles) {
     const pdfLink = document.createElement('a');
 
     // Adjust the path based on your repository structure
-    pdfLink.href = `/repository-name/INSURANCE/G2/${fileName}.pdf`;
+    pdfLink.href = `/INSURANCE/G2/${fileName}.pdf`;
     pdfLink.textContent = fileName;
     listItem.appendChild(pdfLink);
     pdfList.appendChild(listItem);
-  })};
+  });
+}
 
-    // Function to filter PDF list based on user input
-    function filterPDFList() {
-      const searchInput = document.getElementById('search-input').value.toLowerCase();
-      const filteredPDFFiles = allPDFFiles.filter(fileName => fileName.toLowerCase().includes(searchInput));
-      createPDFLinks(filteredPDFFiles);
-    }
+// Function to filter PDF list based on user input
+function filterPDFList() {
+  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const filteredPDFFiles = allPDFFiles.filter(fileName => fileName.toLowerCase().includes(searchInput));
+  createPDFLinks(filteredPDFFiles);
+}
 
-    // Call the function when the page loads
-    window.onload = fetchPDFList;
+// Event listener for the search input
+document.getElementById('search-input').addEventListener('keyup', function(event) {
+  if (event.key === 'Enter') {
+    filterPDFList();
+  }
+});
+
+// Call the function when the page loads
+window.onload = fetchPDFList;
