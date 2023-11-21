@@ -1,43 +1,52 @@
- // Function to fetch PDF files from the server and store them in an array
- async function fetchPDFList() {
-    try {
-      const response = await fetch('/AB/');
-      const data = await response.text();
+    // Array to store all PDF file names
+    let allPDFFiles = [];
 
-      // Parse the HTML response to extract PDF file names
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(data, 'text/html');
-      const links = htmlDoc.querySelectorAll('a[href$=".pdf"]');
+   // Function to fetch PDF files from the server and store them in an array
+async function fetchPDFList() {
+  try {
+    const response = await fetch('/INSURANCE/G2/');
+    const data = await response.text();
 
-      // Extract file names and create links
-      const pdfFiles = Array.from(links).map(link => link.getAttribute('href'));
-      createPDFLinks(pdfFiles);
-    } catch (error) {
-      console.error('Error fetching PDF list:', error);
-    }
-  }
+    // Parse the HTML response to extract PDF file names
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(data, 'text/html');
+    const links = htmlDoc.querySelectorAll('a[href$=".pdf"]');
 
-  // Function to create links for each PDF file
-  function createPDFLinks(pdfFiles) {
-    const pdfList = document.getElementById('pdfList');
-
-    pdfFiles.forEach(href => {
-      const listItem = document.createElement('li');
-      const pdfLink = document.createElement('a');
-
-      // Extracting only the file name (excluding extension)
-      const fileName = href.split('/').pop().split('.pdf')[0];
-
-      // Ensure that the path starts with /AB/
-      const correctedPath = href.startsWith('/AB/') ? href : `/AB/${href}`;
-
-      // Use encodeURIComponent for the entire file path
-      pdfLink.href = correctedPath;
-      pdfLink.textContent = fileName;
-      listItem.appendChild(pdfLink);
-      pdfList.appendChild(listItem);
+    // Extract file names and create links
+    allPDFFiles = Array.from(links).map(link => {
+      // Extracting only the file name (excluding extension and date-time)
+      const fileName = link.textContent.split('.pdf')[0].trim();
+      return fileName;
     });
-  }
 
-  // Call the function when the page loads
-  window.onload = fetchPDFList;
+    createPDFLinks(allPDFFiles);
+  } catch (error) {
+    console.error('Error fetching PDF list:', error);
+  }
+}
+
+   // Function to create links for each PDF file
+function createPDFLinks(pdfFiles) {
+  const pdfList = document.getElementById('pdfList');
+  pdfList.innerHTML = '';
+
+  pdfFiles.forEach(fileName => {
+    const listItem = document.createElement('li');
+    const pdfLink = document.createElement('a');
+
+    // Adjust the path based on your repository structure
+    pdfLink.href = `/repository-name/INSURANCE/G2/${fileName}.pdf`;
+    pdfLink.textContent = fileName;
+    listItem.appendChild(pdfLink);
+    pdfList.appendChild(listItem);
+  })};
+
+    // Function to filter PDF list based on user input
+    function filterPDFList() {
+      const searchInput = document.getElementById('search-input').value.toLowerCase();
+      const filteredPDFFiles = allPDFFiles.filter(fileName => fileName.toLowerCase().includes(searchInput));
+      createPDFLinks(filteredPDFFiles);
+    }
+
+    // Call the function when the page loads
+    window.onload = fetchPDFList;
