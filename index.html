@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> 3GS INSURANCE</title>
+</head>
+<body>
+  <h1>GALLANTRY</h1>
+  
+  <label for="search-input">Search: </label>
+  <input type="text" id="search-input" oninput="filterPDFList()">
+
+  <ul id="pdfList"></ul>
+
+  <script>
+    // Array to store all PDF file names
+    let allPDFFiles = [];
+
+    // Function to fetch PDF files from the server and store them in an array
+    async function fetchPDFList() {
+      try {
+        const response = await fetch('/INSURANCE/G1/');
+        const data = await response.text();
+
+        // Parse the HTML response to extract PDF file names
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(data, 'text/html');
+        const links = htmlDoc.querySelectorAll('a[href$=".pdf"]');
+
+        // Extract file names and create links
+        allPDFFiles = Array.from(links).map(link => {
+          // Extracting only the file name (excluding extension and date-time)
+          const fileName = link.textContent.split('.pdf')[0].trim();
+          return fileName;
+        });
+
+        createPDFLinks(allPDFFiles);
+      } catch (error) {
+        console.error('Error fetching PDF list:', error);
+      }
+    }
+
+    // Function to create links for each PDF file
+    function createPDFLinks(pdfFiles) {
+      const pdfList = document.getElementById('pdfList');
+      pdfList.innerHTML = '';
+
+      pdfFiles.forEach(fileName => {
+        const listItem = document.createElement('li');
+        const pdfLink = document.createElement('a');
+
+        pdfLink.href = `/INSURANCE/G1/${fileName}.pdf`;
+        pdfLink.textContent = fileName;
+        listItem.appendChild(pdfLink);
+        pdfList.appendChild(listItem);
+      });
+    }
+
+    // Function to filter PDF list based on user input
+    function filterPDFList() {
+      const searchInput = document.getElementById('search-input').value.toLowerCase();
+      const filteredPDFFiles = allPDFFiles.filter(fileName => fileName.toLowerCase().includes(searchInput));
+      createPDFLinks(filteredPDFFiles);
+    }
+
+    // Call the function when the page loads
+    window.onload = fetchPDFList;
+  </script>
+</body>
+</html>
