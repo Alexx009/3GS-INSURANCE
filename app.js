@@ -4,7 +4,7 @@ let allPDFFiles = [];
 // Function to fetch PDF files from the server and store them in an array
 async function fetchPDFList() {
   try {
-    const response = await fetch('/3GS-INSURANCE/INSURANCE/G2/');
+    const response = await fetch('https://alexx009.github.io/3GS-INSURANCE/INSURANCE/G2/');
 
     const data = await response.text();
 
@@ -36,7 +36,7 @@ function createPDFLinks(pdfFiles) {
     const pdfLink = document.createElement('a');
 
     // Adjust the path based on your repository structure
-    pdfLink.href = `/3GS-INSURANCE/INSURANCE/G2/${fileName}.pdf`;
+    pdfLink.href = `https://alexx009.github.io/3GS-INSURANCE/INSURANCE/G2/${fileName}.pdf`;
 
     pdfLink.textContent = fileName;
     listItem.appendChild(pdfLink);
