@@ -1,30 +1,26 @@
 // Array to store all PDF file names
-let allPDFFiles = [];
+let allPDFFiles = ["ZA.pdf"];
 
-// Function to fetch PDF files from the server and store them in an array
-async function fetchPDFList() {
-  try {
-    const response = await fetch('./INSURANCE/G2');
+// // Function to fetch PDF files from the server and store them in an array
+// async function fetchPDFList() {
+//   try {
+//     const response = await fetch('/INSURANCE/G2/');
 
-    const data = await response.text();
+//     const data = await response.text();
 
-    // Parse the HTML response to extract PDF file names
-    const parser = new DOMParser();
-    const htmlDoc = parser.parseFromString(data, 'text/html');
-    const links = htmlDoc.querySelectorAll('a[href$=".pdf"]');
+//     // Parse the HTML response to extract PDF file names
+//     const parser = new DOMParser();
+//     const htmlDoc = parser.parseFromString(data, 'text/html');
+//     const links = Array.from(htmlDoc.querySelectorAll('a[href$=".pdf"]'));
 
-    // Extract file names and create links
-    allPDFFiles = Array.from(links).map(link => {
-      // Extracting only the file name (excluding extension and date-time)
-      const fileName = link.textContent.split('.pdf')[0].trim();
-      return fileName;
-    });
+//     // Extract file names and create links
+//     allPDFFiles = links.map(link => link.textContent.split('.pdf')[0].trim());
 
-    createPDFLinks(allPDFFiles);
-  } catch (error) {
-    console.error('Error fetching PDF list:', error);
-  }
-}
+//     createPDFLinks(allPDFFiles);
+//   } catch (error) {
+//     console.error('Error fetching PDF list:', error);
+//   }
+// }
 
 // Function to create links for each PDF file
 function createPDFLinks(pdfFiles) {
@@ -36,7 +32,7 @@ function createPDFLinks(pdfFiles) {
     const pdfLink = document.createElement('a');
 
     // Adjust the path based on your repository structure
-    pdfLink.href = `./INSURANCE/G2/${fileName}.pdf`;
+    pdfLink.href = `/INSURANCE/G2/${fileName}.pdf`;
 
     pdfLink.textContent = fileName;
     listItem.appendChild(pdfLink);
@@ -52,7 +48,7 @@ function filterPDFList() {
 }
 
 // Event listener for the search input
-document.getElementById('search-input').addEventListener('keyup', function(event) {
+document.getElementById('search-input').addEventListener('keyup', event => {
   if (event.key === 'Enter') {
     filterPDFList();
   }
