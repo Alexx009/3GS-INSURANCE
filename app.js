@@ -11,7 +11,7 @@ function createPDFLinks(pdfFiles) {
     const pdfLink = document.createElement('a');
 
     // Adjust the path based on your repository structure
-    pdfLink.href = `${fileName}.pdf`;
+    pdfLink.href = `./INSURANCE/G1/${fileName}`;
 
     pdfLink.textContent = fileName;
     listItem.appendChild(pdfLink);
