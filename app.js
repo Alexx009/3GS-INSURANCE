@@ -1,5 +1,5 @@
 // Array to store all PDF file names
-let allPDFFiles = [s];
+let allPDFFiles = [];
 
 // Function to fetch PDF files from the server and store them in an array
 async function fetchPDFList() {
