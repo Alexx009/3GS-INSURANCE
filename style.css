@@ -55,14 +55,14 @@ body{
   }
 
   .g2 {
-    background-image: url("/Images/GOLDEN GATE.png");
+    background-image: url("Images/GOLDEN GATE.png");
     background-size: auto;
     background-repeat: no-repeat;
     background-color: #e2d914;
   }
 
   .g3 {
-    background-image: url("/Images/GRANDCANYON.png");
+    background-image: url("Images/GRANDCANYON.png");
     background-size:contain;
     background-repeat: no-repeat;
     background-color: #123e57;
