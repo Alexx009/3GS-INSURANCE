@@ -2,7 +2,7 @@ import os
 import json
 
 # Specify the directory containing the PDF files
-pdf_directory = './INSURANCE/G3'
+pdf_directory = './INSURANCE/G1'
 
 # Get a list of all PDF files in the directory
 pdf_files = [f for f in os.listdir(pdf_directory) if f.endswith('.pdf')]
@@ -11,7 +11,7 @@ pdf_files = [f for f in os.listdir(pdf_directory) if f.endswith('.pdf')]
 pdf_dict = {'pdf_files': pdf_files}
 
 # Specify the path for the JSON file
-json_file_path = 'G3.json'
+json_file_path = 'G1.json'
 
 # Write the dictionary to a JSON file
 with open(json_file_path, 'w') as json_file:

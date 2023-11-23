@@ -1,16 +1,72 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Set the default font for the page */
+    background-color:burlywood;
+  }
+
 ul{
     list-style-type: none;
     padding: 0;
     margin: 0;
     text-align: center;
 }
-.HEADER {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 5vh;
+.LINKS a {
+    color: black; /* Set the text color to a shade of blue */
+    text-decoration: none; /* Remove the underline */
+    font-weight: bold; /* Make the text bold */
+  }
+
+  /* Change the link color when hovered */
+  .LINKS a:hover {
+    color: white; /* Darker blue on hover */
+  }
+
+
+body{
+    padding: 0;
     margin: 0;
 }
+.header {
+    display: flex;
+
+  }
+
+  .header a {
+    flex: 1;
+      min-height: 100px; /* Set a minimum height for the anchor elements */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      
+  }
+
+  .g1 {
+    background-image: url("Images/GALLANTRY.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-color: #ef9539;
+  }
+  .g1:hover, .g2:hover, .g3:hover {
+    background-color: whitesmoke;
+  }
+
+  .g2 {
+    background-image: url("/Images/GOLDEN GATE.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-color: #e2d914;
+  }
+
+  .g3 {
+    background-image: url("/Images/GRANDCANYON.png");
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-color: #123e57;
+  }
 .search-bar {
     display: flex;
     justify-content: center;
