@@ -2,7 +2,11 @@ body {
     font-family: 'Roboto', sans-serif; /* Set the default font for the page */
     background-color:burlywood;
   }
-
+h1{
+    text-align: center;
+    size: 15px;
+    
+}
 ul{
     list-style-type: none;
     padding: 0;
